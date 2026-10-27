@@ -1,0 +1,18 @@
+{
+ "format": "zen-lipsync-avatar-set",
+ "version": 1,
+ "id": "marine",
+ "name": {
+  "ja": "全力 マリン",
+  "en": "Zenryoku Marine"
+ },
+ "model": "marine-1.0",
+ "sources": {
+  "normal": "normal",
+  "angry": "angry"
+ },
+ "default": "normal",
+ "idleSwitch": "idle-switch.json",
+ "license": "LICENSE.md (the avatar Zenryoku Marine: section 4)",
+ "credit": "リップシンク：ZEN-LipSync（https://zenryokukikai.com）"
+}

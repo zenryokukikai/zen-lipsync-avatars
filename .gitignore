@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.DS_Store
+check*.json
+check*.png
+examples/conversation/asr/model/
+examples/conversation/tts-models/
+node-stream-check.png
+marine.mp4

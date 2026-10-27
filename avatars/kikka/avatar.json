@@ -1,0 +1,16 @@
+{
+ "format": "zen-lipsync-avatar-set",
+ "version": 1,
+ "id": "kikka",
+ "name": {
+  "ja": "全力 キッカ",
+  "en": "Zenryoku Kikka"
+ },
+ "model": "kikka-1.0",
+ "sources": {
+  "normal": "normal"
+ },
+ "default": "normal",
+ "license": "LICENSE.md (the avatar Zenryoku Kikka: section 4)",
+ "credit": "リップシンク：ZEN-LipSync（https://zenryokukikai.com）"
+}

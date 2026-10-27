@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZEN-LipSync デモ</title>
+<style>
+  :root { color-scheme: light dark; --fg: #0f172a; --muted: #475569; --bg: #f8fafc; --card: #fff; --line: #cbd5e1; --accent: #2563eb; }
+  @media (prefers-color-scheme: dark) { :root { --fg: #e2e8f0; --muted: #94a3b8; --bg: #0b1220; --card: #111a2e; --line: #334155; --accent: #60a5fa; } }
+  body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; }
+  main { max-width: 860px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 1.4rem; margin: 8px 0; }
+  /* the SDK sizes and lays out the avatar inside #stage; only the rounded corners are this page's */
+  #stage { border-radius: 12px; overflow: hidden; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0; }
+  button, label.file { font: inherit; min-height: 44px; padding: 8px 16px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--fg); cursor: pointer; }
+  button:disabled { opacity: .5; cursor: default; }
+  #status { color: var(--muted); }
+  footer { margin-top: 24px; font-size: .9rem; color: var(--muted); }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>ZEN-LipSync デモ</h1>
+  <p>音声に合わせて、アバター「全力 マリン」の唇をブラウザの中（WebGPU）でリアルタイムに動かします。音声も映像もサーバーには送りません。</p>
+  <div id="stage"></div>
+  <div class="row" id="loops" hidden></div>
+  <div class="row">
+    <button id="sample" disabled>試し用の音声で話す</button>
+    <label class="file">音声ファイルを選ぶ <input id="file" type="file" accept="audio/*" disabled hidden></label>
+    <button id="rec" disabled>● 録音</button>
+    <button id="stream" disabled>少しずつ届く音声で話す</button>
+    <button id="stop" disabled>止める</button>
+  </div>
+  <p id="status" role="status">準備しています…</p>
+  <p>音声合成と組み合わせる例：<a href="https://github.com/zenryokukikai">ZEN-TTS</a> で作った音声（WAV）を「音声ファイルを選ぶ」で読み込めば、文章から唇まで、すべてブラウザの中で動きます。</p>
+  <p>新しいアバター（ご自身の顔・映像）のモデル作成は、全力機械にご依頼ください（<a href="https://zenryokukikai.com">https://zenryokukikai.com</a>）。</p>
+  <footer>リップシンク：ZEN-LipSync（<a href="https://zenryokukikai.com">https://zenryokukikai.com</a>）</footer>
+</main>
+<script type="module" src="../dist/demo.js"></script>
+</body>
+</html>

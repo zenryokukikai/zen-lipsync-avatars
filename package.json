@@ -1,0 +1,42 @@
+{
+  "name": "zen-lipsync-avatars",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=26.12.1"
+  },
+  "description": "ZEN-LipSync avatars: 「全力 マリン」 (Zenryoku Marine), 「全力 ハシロウ」 (Zenryoku Hashiro) and 「全力 キッカ」 (Zenryoku Kikka), the demo and usage examples of the @zenryokukikai/zen-lipsync SDK",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "serve": "python3 -m http.server 8080",
+    "check": "node scripts/check.mjs",
+    "typecheck": "tsc -p tsconfig.json",
+    "fetch-asr": "node scripts/fetch-asr.mjs",
+    "fetch-tts-models": "node scripts/fetch-tts-models.mjs",
+    "check:conversation": "node scripts/check-conversation.mjs",
+    "node:mp4": "node examples/node-mp4/main.mjs",
+    "node:stream": "node examples/node-stream/server.mjs",
+    "node:tts": "node examples/node-tts/main.mjs",
+    "check:tts": "node scripts/check-tts.mjs",
+    "check:geometry": "node scripts/check-geometry.mjs",
+    "check:node-tts": "node scripts/check-node-tts.mjs",
+    "bench:lipsync": "node scripts/bench-lipsync.mjs"
+  },
+  "dependencies": {
+    "@zenryokukikai/zen-lipsync": "github:zenryokukikai/zen-lipsync#v1.0.0",
+    "zen-tts": "github:zenryokukikai/zen-tts#v1.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "~0.25.0",
+    "playwright": "~1.63.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "typescript": "^7.0.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.2.0",
+    "ws": "^8.22.0"
+  },
+  "packageManager": "pnpm@12.14.0"
+}

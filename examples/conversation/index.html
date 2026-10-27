@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>マリンと会話する｜ZEN-TTS × ZEN-LipSync</title>
+<style>
+  :root { color-scheme: light dark; --fg: #0f172a; --muted: #475569; --bg: #f8fafc; --card: #fff; --line: #cbd5e1; --accent: #2563eb; --user: #dbeafe; --av: #fff; }
+  @media (prefers-color-scheme: dark) { :root { --fg: #e2e8f0; --muted: #94a3b8; --bg: #0b1220; --card: #111a2e; --line: #334155; --accent: #60a5fa; --user: #1e3a8a; --av: #111a2e; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif; background: var(--bg); color: var(--fg); line-height: 1.6; }
+  main { max-width: 860px; margin: 0 auto; padding: 12px 12px 72px; }
+  h1 { font-size: 1.25rem; margin: 4px 0; }
+  small.en { display: block; color: var(--muted); font-size: .75rem; font-weight: normal; }
+  /* the SDK sizes and lays out the avatar inside #stage; only the rounded corners are this page's */
+  #stage { border-radius: 12px; overflow: hidden; }
+  /* the newest talk is kept just below the avatar: the log scrolls inside its own box */
+  #log { max-height: 40vh; overflow-y: auto; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  button, select, input { font: inherit; min-height: 44px; padding: 6px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--fg); }
+  button { cursor: pointer; }
+  button.primary { background: var(--accent); color: #fff; border-color: var(--accent); min-width: 160px; }
+  button:disabled { opacity: .5; cursor: default; }
+  #state { padding: 8px 12px; border-radius: 10px; background: var(--card); border: 1px solid var(--line); }
+  #state[data-state="listening"] { border-color: #16a34a; }
+  #state[data-state="speaking"] { border-color: var(--accent); }
+  #state[data-state="error"] { border-color: #dc2626; }
+  .meter { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin-top: 6px; }
+  #level { height: 100%; width: 0; background: var(--muted); transition: width .05s; }
+  #level.on { background: #16a34a; }
+  #log { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+  .bubble { max-width: 85%; padding: 6px 12px; border-radius: 12px; border: 1px solid var(--line); }
+  .bubble p { margin: 0; }
+  .bubble small { color: var(--muted); font-size: .75rem; }
+  .bubble.user { align-self: flex-end; background: var(--user); }
+  .bubble.avatar { align-self: flex-start; background: var(--av); }
+  .load { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; font-size: .85rem; }
+  .load div { display: contents; }
+  .load progress { grid-column: 1 / -1; width: 100%; height: 6px; }
+  .load .done .mb::after { content: " ✓"; }
+  details { margin: 12px 0; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
+  details label { display: block; margin: 6px 0; }
+  details input, details select, details textarea { width: 100%; }
+  textarea { font: inherit; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--fg); resize: vertical; box-sizing: border-box; }
+  .note { font-size: .8rem; color: var(--muted); }
+  /* required credit: always visible */
+  footer.credit { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; padding: 10px 12px; font-size: .85rem; text-align: center;
+    background: var(--card); border-top: 1px solid var(--line); }
+  footer.credit a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>マリンと会話する<small class="en">Talk with Zenryoku Marine</small></h1>
+  <p class="note">声の聞き取り・返事の声・リップシンクは、すべてこのブラウザの中（WebGPU）で動きます。返事を作る AI だけ、選んだ先を使います（最初は通信しない「おうむ返し」）。</p>
+  <div id="stage"></div>
+
+  <div class="row">
+    <button id="start" class="primary" disabled><span>会話を始める</span><small class="en" id="startEn">Start</small></button>
+    <label>声の感情 <small class="en">Emotion</small>
+      <select id="emotion">
+        <option value="neutral">平静 / neutral</option>
+        <option value="happy">喜び / happy</option>
+        <option value="sad">悲しみ / sad</option>
+        <option value="angry">怒り / angry</option>
+        <option value="apologetic">申し訳なさ / apologetic</option>
+      </select>
+    </label>
+  </div>
+
+  <div id="state" role="status" data-state="loading"><span id="stateJa">準備しています</span><small class="en" id="stateEn">Loading</small>
+    <div class="meter" title="マイクの声の大きさ / Mic"><div id="level"></div></div>
+  </div>
+
+  <div id="log" aria-live="polite"></div>
+
+  <details open>
+    <summary>モデルの読み込み <small class="en">Model loading (first time only; then from the browser cache)</small></summary>
+    <div class="load">
+      <div id="pAvatar"><span>リップシンク（全力 マリン）</span><span class="mb">0 / 44 MB</span><progress value="0"></progress></div>
+      <div id="pTts"><span>音声合成（ZEN-TTS）</span><span class="mb">0 / 31 MB</span><progress value="0"></progress></div>
+      <div id="pAsr"><span>声の聞き取り（k2-v2）</span><span class="mb">0 / 155.1 MB</span><progress value="0"></progress></div>
+      <div id="pVad"><span>話し声の検出（Silero VAD）</span><span class="mb">0 / 0.6 MB</span><progress value="0"></progress></div>
+    </div>
+    <p id="asrHelp" class="note" hidden>声の聞き取りのモデルが見つかりません。リポジトリで <code>pnpm fetch-asr</code> を実行してください。</p>
+  </details>
+
+  <details>
+    <summary>返事を作る AI の設定 <small class="en">Reply settings</small></summary>
+    <label>種類 <small class="en">Kind</small>
+      <select id="llmKind">
+        <option value="echo">おうむ返し（通信なし） / Built-in echo (no network)</option>
+        <option value="openai">OpenAI 互換の API / OpenAI-compatible API</option>
+      </select>
+    </label>
+    <div id="llmFields">
+      <label>API の URL <small class="en">Base URL</small><input id="llmBase" type="url" autocomplete="off"></label>
+      <label>API キー <small class="en">API key</small><input id="llmKey" type="password" autocomplete="off"></label>
+      <label>モデル名 <small class="en">Model</small><input id="llmModel" type="text" autocomplete="off"></label>
+      <label>考える深さ <small class="en">Thinking level (reasoning_effort)</small>
+        <select id="llmReasoning">
+          <option value="none">none（いちばん速い） / fastest</option>
+          <option value="minimal">minimal</option>
+          <option value="low">low</option>
+          <option value="medium">medium</option>
+          <option value="high">high</option>
+          <option value="xhigh">xhigh</option>
+          <option value="max">max（いちばん深い・遅い） / deepest, slowest</option>
+          <option value="">送らない / not sent (for servers without this setting)</option>
+        </select>
+      </label>
+      <p class="note">深くするほど返事はていねいになりますが、マリンが話し始めるまでの時間が長くなります。<br><span class="en">Deeper thinking gives more careful replies but Marine starts speaking later.</span></p>
+      <label>プロンプト（マリンの話し方） <small class="en">System prompt</small>
+        <textarea id="llmSystem" rows="6" autocomplete="off"></textarea>
+      </label>
+      <button id="resetSystem" type="button">初期のプロンプトに戻す <small class="en">Reset prompt</small></button>
+      <p class="note">API キーは、このブラウザの中（localStorage）にだけ保存します。会話の文章とキーは、このブラウザから上の URL へ直接送られます。<br><span class="en">The key is stored only in this browser and is sent with your text straight to the URL above.</span></p>
+    </div>
+    <button id="save">保存 <small class="en">Save</small></button> <span id="saved" class="note"></span>
+  </details>
+
+  <p class="note">話し終わると、聞き取り → 返事 → マリンが最後まで話す → また聞く、の順に進みます。マリンが話している間はマイクを聞きません。</p>
+</main>
+<footer class="credit">音声合成：ZEN-TTS ／ リップシンク：ZEN-LipSync ／ 全力機械 <a href="https://zenryokukikai.com" target="_blank" rel="noopener">https://zenryokukikai.com</a></footer>
+<script type="module" src="../../dist/examples/conversation.js"></script>
+</body>
+</html>
