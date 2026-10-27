@@ -28,6 +28,6 @@ const r = await renderText(avatar, tts, text, {
   },
 });
 console.log(`${r.file}: ${r.frames} frames (${(r.durationMs / 1000).toFixed(2)} s) in ${((performance.now() - t0) / 1000).toFixed(1)} s`);
-console.log('Credit (required): 音声合成：ZEN-TTS ／ リップシンク：ZEN-LipSync ／ 全力機械 https://zenryokukikai.com');
+console.log('Credit (required): 音声合成：ZEN-TTS / リップシンク：ZEN-LipSync（https://zenryokukikai.com）');
 avatar.destroy();
 tts.destroy();

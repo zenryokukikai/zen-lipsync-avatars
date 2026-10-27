@@ -119,7 +119,7 @@ pnpm serve              # http://localhost:8080/examples/conversation/ を開い
 - **返事を作る AI**：最初は通信しない「おうむ返し」です（キーなしで動きます）。「返事を作る AI の設定」で、OpenAI 互換の API（URL・API キー・モデル名）に切り替えられます。**API キーはこのブラウザの中（localStorage）にだけ保存し、会話の文章と一緒に、このブラウザから指定した URL へ直接送ります。** キーはリポジトリには入っていません。
 - **声の感情**：平静・喜び・悲しみ・怒り・申し訳なさから選べます。
 - **話させ方**：返事の文章は `speakText(avatar, tts, 文章, { emotion })`（`@zenryokukikai/zen-lipsync/tts`）で話させています。1 文ずつ ZEN-TTS で作り、できた文から順にリップシンクします。文と文の間にすき間はできません。
-- **画面の表示**：「音声合成：ZEN-TTS ／ リップシンク：ZEN-LipSync ／ 全力機械 https://zenryokukikai.com」を、いつも画面の下に表示しています。このサンプルをもとに作るときも、この表示（リンク）を残してください（必須です）。
+- **画面の表示**：「音声合成：ZEN-TTS / リップシンク：ZEN-LipSync（https://zenryokukikai.com ）」を、いつも画面の下に表示しています。このサンプルをもとに作るときも、この表示（リンク）を残してください（必須です）。
 - **モデルの場所**：`?asrmodel=<URL>`、`?ttsmodels=<URL>`、`?assets=<URL>` で、別の場所（CDN など）から読み込めます。
 - 確認（ヘッドレス Chromium・WebGPU、`pnpm serve` を動かした状態で）：`pnpm check:conversation`。話し声の入った WAV を偽のマイクにして、聞き取り → おうむ返し → 声とリップシンク、話している間のマイクを無視すること、画面下の表示とリンク、外部への通信なし、を確かめます。
 - ZEN-TTS とのつなぎの確認：`pnpm check:tts`（ブラウザ。3 文の文章を `speakText` で話させて、最初の声とリップシンクまでの時間、文と文の間のすき間、リップシンクが出ているフレームの割合を測ります）、`pnpm check:node-tts`（Node。文章 → MP4 の長さと声のずれ、配信の最初のフレームまでの時間、速さ）。
