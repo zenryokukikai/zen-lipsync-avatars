@@ -5,7 +5,7 @@
 
 超軽量で超高速な実写リップシンク「ZEN-LipSync」の、アバターです。音声に合わせて、全力 マリン（ぜんりょく まりん）、全力 ハシロウ（ぜんりょく はしろう）、全力 キッカ（ぜんりょく きっか）をリアルタイムにリップシンクできます。
 
-バージョン 1.0.0（アバターのモデル marine-1.0 / hashiro-1.0 / kikka-1.0）。
+バージョン 1.1.0（アバターのモデル marine-1.0 / hashiro-1.0 / kikka-1.0）。口元の画像は 1 本の待機映像ごとに 1 ファイル（frames.pack、WebP）にまとめています（アバターパックの形式 2。ZEN-LipSync 1.1.0 以降で読めます）。
 
 > **ZEN-LipSync は、同梱のアバター（全力 マリン／全力 ハシロウ／全力 キッカ）専用のリップシンクモデルです。** 汎用モデルではなく、ほかの顔・映像では動きません。新しいアバターのモデル作成は、全力機械にご依頼ください（https://zenryokukikai.com ）。
 
@@ -19,11 +19,11 @@
 | [zenryokukikai/zen-lipsync](https://github.com/zenryokukikai/zen-lipsync) | ZEN-LipSync の SDK（`@zenryokukikai/zen-lipsync`） |
 | [zenryokukikai/zen-tts](https://github.com/zenryokukikai/zen-tts) | ZEN-TTS 本体：4 人分の声のモデル、ブラウザ用と Node 用の実行部分 |
 
-GitHub のリポジトリを指定して入れます（`v1.0.0` のタグで固定）。
+GitHub のリポジトリを指定して入れます（`v1.1.0` のタグで固定）。
 
 ```sh
-npm i github:zenryokukikai/zen-lipsync-avatars#v1.0.0
-npm i github:zenryokukikai/zen-lipsync#v1.0.0
+npm i github:zenryokukikai/zen-lipsync-avatars#v1.1.0
+npm i github:zenryokukikai/zen-lipsync#v1.1.0
 ```
 
 ## 入れ方
@@ -32,15 +32,15 @@ npm i github:zenryokukikai/zen-lipsync#v1.0.0
 
 ```sh
 # npm
-npm i github:zenryokukikai/zen-lipsync-avatars#v1.0.0
+npm i github:zenryokukikai/zen-lipsync-avatars#v1.1.0
 # pnpm
-pnpm add github:zenryokukikai/zen-lipsync-avatars#v1.0.0
+pnpm add github:zenryokukikai/zen-lipsync-avatars#v1.1.0
 # yarn
-yarn add github:zenryokukikai/zen-lipsync-avatars#v1.0.0
+yarn add github:zenryokukikai/zen-lipsync-avatars#v1.1.0
 ```
 
 - このリポジトリは、アバターの素材と例の集まりです。ふつうは、リポジトリを取ってきて、`pnpm install` で開発用の道具を入れます（下の「動かす」）。
-- リポジトリの中の SDK は、決まったコミットで固定しています（`package.json` の `github:zenryokukikai/zen-lipsync#<コミット>`）。このコミットは SDK の 1.0.0 のもので、タグ `v1.0.0` と同じ中身です（README だけが違います）。
+- リポジトリの中の SDK は、決まったコミットで固定しています（`package.json` の `github:zenryokukikai/zen-lipsync#<コミット>`）。このコミットは SDK の 1.1.0 のもので、タグ `v1.1.0` と同じ中身です。アバターパックの形式 2（`frames.pack`）は SDK 1.1.0 以降で読めます。
 - 使う Node.js は 26.12.1 です（`.mise.toml` で固定）。
 - 音声合成のモデルは、`pnpm fetch-tts-models` で取ってきます（下のとおり）。
 
@@ -52,9 +52,9 @@ yarn add github:zenryokukikai/zen-lipsync-avatars#v1.0.0
 
 | アバター | id | モデル | 中身 | 大きさ |
 |---|---|---|---|---|
-| 全力 マリン（Zenryoku Marine） | `marine` | marine-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 2 種・口元の画像・特徴データ）、試し用の音声 | 84 MB |
-| 全力 ハシロウ（Zenryoku Hashiro） | `hashiro` | hashiro-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 2 種・口元の画像・特徴データ） | 95 MB |
-| 全力 キッカ（Zenryoku Kikka） | `kikka` | kikka-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 1 種・口元の画像・特徴データ） | 56 MB |
+| 全力 マリン（Zenryoku Marine） | `marine` | marine-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 2 種・口元の画像・特徴データ）、試し用の音声 | 51 MB |
+| 全力 ハシロウ（Zenryoku Hashiro） | `hashiro` | hashiro-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 2 種・口元の画像・特徴データ） | 57 MB |
+| 全力 キッカ（Zenryoku Kikka） | `kikka` | kikka-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 1 種・口元の画像・特徴データ） | 36 MB |
 
 - `avatars/marine/`、`avatars/hashiro/`、`avatars/kikka/`：それぞれのアバターのリップシンクのモデルと素材です。
   - 待機映像は、マリンとハシロウが 2 種類（ふつう `normal/` と怒り `angry/`）、キッカが 1 種類（`normal/`）です。話していない間に、似たフレームを選んで 0.3 秒で切り替えられます（`setIdle`）。
@@ -88,7 +88,7 @@ SDK は npm レジストリを使わず、GitHub の決まったコミットか�
 
 ## サーバー（Node.js）で使う
 
-`@zenryokukikai/zen-lipsync/node` は、サーバーの CPU で、音声から全力 マリンが話す映像を作ります（GPU は使いません）。Node 20 以降と **ffmpeg**（`PATH` にあるもの）が必要です。linux-x64 では、SDK のネイティブ版を作ると速くなります（SDK の `pnpm run build:native`。gcc が必要）。作らなくても WebAssembly 版で動きます。
+`@zenryokukikai/zen-lipsync/node` は、サーバーの CPU で、音声から全力 マリンが話す映像を作ります（GPU は使いません）。Node 20 以降と **ffmpeg**（`PATH` にあるもの）が必要です。linux-x64 では、SDK のネイティブ版を作ってください（SDK の `pnpm run build:native`。gcc が必要）。既定の float32（ブラウザと同じ画質）はネイティブ版で動きます。作らない場合は WebAssembly 版の int8 で動きます（速さは下のとおりで、アバターによっては口元のまわりに細かい粒が出ます）。
 
 ```bash
 pnpm install
@@ -100,7 +100,7 @@ pnpm fetch-tts-models && pnpm node:tts ["文章"] [出力.mp4] [--emotion happy]
 - **examples/node-mp4/**：WAV ファイル（16 bit PCM か 32 bit float）を読み、`avatar.render(audio, { out: 'marine.mp4' })` で MP4（H.264 + AAC）を書き出します。8.12 秒の試し用の音声で、映像も音声も 8.12 秒ちょうど（203 フレーム）になります。
 - **examples/node-stream/**：`server.mjs` が、つないだブラウザごとにアバターを作り、`avatar.stream(音声, { format: 'jpeg', realtime: true })` の JPEG と PCM を WebSocket で送ります。`viewer.html` は、届いた音声を順に鳴らし、その時刻に合わせて JPEG を描きます（0.3 秒のゆとり）。「話させる」を押すと、試し用の音声を 1 秒ずつのかたまりで送ります（音声合成が少しずつ返す形のかわり）。話していない間も、待機映像が流れ続けます。`examples/node-stream/check.mjs` で、画面のないブラウザで確かめられます。WebSocket には `ws` パッケージを使います。
 - **examples/node-tts/**：文章から、マリンが話す MP4 を作ります。声は ZEN-TTS（`zen-tts/node`、CPU）で 1 文ずつ作り、`renderText(avatar, tts, 文章, { out })`（`@zenryokukikai/zen-lipsync/tts/node`）で、できた文から順にリップシンクします。GPU は使いません。ZEN-TTS のモデルは `pnpm fetch-tts-models` で取ってきます。ZEN-TTS も、linux-x64 ではネイティブ版を作ると速くなります（ZEN-TTS の `pnpm run build:native`。clang 16 以降）。3 文・約 8 秒の文章で、映像も音声も 8.4 秒（あとの待機 0.4 秒を含む）、声のずれは 0 ms でした（CPU 1 本：声とリップシンクの計算で約 7 秒。2 本なら約 5.3 秒）。
-- 速さ（Intel Xeon Silver 4316、CPU 1 本）：ネイティブ AVX-512 VNNI 版で約 40 フレーム/秒（実時間の 0.62 倍の時間で作れます）。AVX2／WebAssembly 版は約 20 フレーム/秒です。くわしくは SDK の README を見てください。
+- 速さ（Intel Xeon Silver 4316、CPU 1 本）：既定の float32 は、ネイティブ AVX-512 版で約 26〜27 フレーム/秒（実時間の 0.93〜0.95 倍の時間）、AVX2 版で約 23 フレーム/秒です。`precision: 'int8'` にすると、ネイティブ AVX-512 VNNI 版で約 40 フレーム/秒（0.62 倍）になります。くわしくは SDK の README を見てください。
 
 ## 会話のサンプル（examples/conversation）
 

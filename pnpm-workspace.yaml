@@ -8,11 +8,11 @@ packages:
 # zen-tts (optional peer of @zenryokukikai/zen-lipsync/tts) is not on the npm registry yet: do not install peers automatically.
 autoInstallPeers: false
 
-# The SDK is installed from GitHub (tag v1.0.0); it builds itself when installed ("prepare" runs tsc).
+# The SDK is installed from GitHub (tag v1.1.0); it builds itself when installed ("prepare" runs tsc).
 # The build permission is per commit: when the tag moves to another commit, change it here too.
 allowBuilds:
   # esbuild (dev tool for pnpm build) installs its platform binary with a postinstall script
   esbuild: true
-  '@zenryokukikai/zen-lipsync@git+https://github.com/zenryokukikai/zen-lipsync.git#e9ab2cc33baba0111b105b00c8da67e4ec69d659': true
+  '@zenryokukikai/zen-lipsync@https://codeload.github.com/zenryokukikai/zen-lipsync/tar.gz/ebecdf09261ac137487d9b08d42e8aaeddb2ae98': true
   # ZEN-TTS (examples/conversation), from GitHub (tag v1.0.0); same rule
   'zen-tts@git+https://github.com/zenryokukikai/zen-tts.git#14b404d527a3d074de8e7ef28d44b14514400a40': true
