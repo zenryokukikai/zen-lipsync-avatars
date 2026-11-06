@@ -5,7 +5,7 @@
 
 超軽量で超高速な実写リップシンク「ZEN-LipSync」の、アバターです。音声に合わせて、全力 マリン（ぜんりょく まりん）、全力 ハシロウ（ぜんりょく はしろう）、全力 キッカ（ぜんりょく きっか）をリアルタイムにリップシンクできます。
 
-バージョン 1.1.0（アバターのモデル marine-1.0 / hashiro-1.0 / kikka-1.0）。口元の画像は 1 本の待機映像ごとに 1 ファイル（frames.pack、WebP）にまとめています（アバターパックの形式 2。ZEN-LipSync 1.1.0 以降で読めます）。
+バージョン 1.1.1（アバターのモデル marine-1.0 / hashiro-1.0 / kikka-1.0）。口元の画像は 1 本の待機映像ごとに 1 ファイル（frames.pack、WebP）にまとめています（アバターパックの形式 2。ZEN-LipSync 1.1.0 以降で読めます）。
 
 > **ZEN-LipSync は、同梱のアバター（全力 マリン／全力 ハシロウ／全力 キッカ）専用のリップシンクモデルです。** 汎用モデルではなく、ほかの顔・映像では動きません。新しいアバターのモデル作成は、全力機械にご依頼ください（https://zenryokukikai.com ）。
 
@@ -14,7 +14,7 @@
 ## 組み込み方
 
 ```sh
-npm i github:zenryokukikai/zen-lipsync#v1.1.0 github:zenryokukikai/zen-lipsync-avatars#v1.1.0
+npm i github:zenryokukikai/zen-lipsync#v1.1.1 github:zenryokukikai/zen-lipsync-avatars#v1.1.1
 ```
 
 ```js
@@ -23,7 +23,14 @@ const avatar = await create({ container: document.getElementById('avatar'), asse
 await avatar.speak({ pcm, sampleRate });   // モノラルの Float32Array
 ```
 
-ブラウザ・React・Node.js（MP4・配信）・ZEN-TTS・会話の、そのまま動く例は [組み込みガイド](https://github.com/zenryokukikai/zen-lipsync/blob/main/docs/GUIDE.md)、関数の一覧は [API](https://github.com/zenryokukikai/zen-lipsync/blob/main/docs/API.md)。
+ブラウザ・React・Node.js（MP4・配信）・ZEN-TTS・会話の、そのまま動く例は [組み込みガイド](https://github.com/zenryokukikai/zen-lipsync/blob/v1.1.1/docs/GUIDE.md)、関数の一覧は [API](https://github.com/zenryokukikai/zen-lipsync/blob/v1.1.1/docs/API.md)。
+
+## 1.1.1 の変更
+
+- ZEN-TTS を 1.2.0 にしました（会話と TTS の例、`pnpm fetch-tts-models`）。
+- `pnpm fetch-asr` が、GitHub のトークンなしで動くようになりました。
+- SDK の [組み込みガイド](https://github.com/zenryokukikai/zen-lipsync/blob/v1.1.1/docs/GUIDE.md) へのリンクを足しました。SDK は 1.1.1 です。
+- アバターのモデルは変わっていません（marine-1.0 / hashiro-1.0 / kikka-1.0）。
 
 ## 関連リポジトリ
 
@@ -33,11 +40,11 @@ await avatar.speak({ pcm, sampleRate });   // モノラルの Float32Array
 | [zenryokukikai/zen-lipsync](https://github.com/zenryokukikai/zen-lipsync) | ZEN-LipSync の SDK（`@zenryokukikai/zen-lipsync`） |
 | [zenryokukikai/zen-tts](https://github.com/zenryokukikai/zen-tts) | ZEN-TTS 本体：4 人分の声のモデル、ブラウザ用と Node 用の実行部分 |
 
-GitHub のリポジトリを指定して入れます（`v1.1.0` のタグで固定）。
+GitHub のリポジトリを指定して入れます（`v1.1.1` のタグで固定）。
 
 ```sh
-npm i github:zenryokukikai/zen-lipsync-avatars#v1.1.0
-npm i github:zenryokukikai/zen-lipsync#v1.1.0
+npm i github:zenryokukikai/zen-lipsync-avatars#v1.1.1
+npm i github:zenryokukikai/zen-lipsync#v1.1.1
 ```
 
 ## 入れ方
@@ -46,15 +53,15 @@ npm i github:zenryokukikai/zen-lipsync#v1.1.0
 
 ```sh
 # npm
-npm i github:zenryokukikai/zen-lipsync-avatars#v1.1.0
+npm i github:zenryokukikai/zen-lipsync-avatars#v1.1.1
 # pnpm
-pnpm add github:zenryokukikai/zen-lipsync-avatars#v1.1.0
+pnpm add github:zenryokukikai/zen-lipsync-avatars#v1.1.1
 # yarn
-yarn add github:zenryokukikai/zen-lipsync-avatars#v1.1.0
+yarn add github:zenryokukikai/zen-lipsync-avatars#v1.1.1
 ```
 
 - このリポジトリは、アバターの素材と例の集まりです。ふつうは、リポジトリを取ってきて、`pnpm install` で開発用の道具を入れます（下の「動かす」）。
-- リポジトリの中の SDK は、決まったコミットで固定しています（`package.json` の `github:zenryokukikai/zen-lipsync#<コミット>`）。このコミットは SDK の 1.1.0 のもので、タグ `v1.1.0` と同じ中身です。アバターパックの形式 2（`frames.pack`）は SDK 1.1.0 以降で読めます。
+- リポジトリの中の SDK は、決まったコミットで固定しています（`package.json` の `github:zenryokukikai/zen-lipsync#<コミット>`）。このコミットは SDK の 1.1.1 のもので、タグ `v1.1.1` と同じ中身です。アバターパックの形式 2（`frames.pack`）は SDK 1.1.0 以降で読めます。
 - 使う Node.js は 26.12.1 です（`.mise.toml` で固定）。
 - 音声合成のモデルは、`pnpm fetch-tts-models` で取ってきます（下のとおり）。
 
