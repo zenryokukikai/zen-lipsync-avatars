@@ -11,6 +11,20 @@
 
 > **ご利用にあたっては、クレジットの表示が必須です。** アプリ・サイト・作品の、利用者が見つけられる場所に「リップシンク：ZEN-LipSync（https://zenryokukikai.com ）」を表示してください。URL はリンクにします。ZEN-TTS と組み合わせるときは、「音声合成：ZEN-TTS / リップシンク：ZEN-LipSync（https://zenryokukikai.com ）」のように 1 行にまとめて構いません（詳しくは [LICENSE.md](LICENSE.md) の 3 章）。
 
+## 組み込み方
+
+```sh
+npm i github:zenryokukikai/zen-lipsync#v1.1.0 github:zenryokukikai/zen-lipsync-avatars#v1.1.0
+```
+
+```js
+import { create } from '@zenryokukikai/zen-lipsync';
+const avatar = await create({ container: document.getElementById('avatar'), assetsBaseUrl: '/node_modules/zen-lipsync-avatars/', avatar: 'avatars/marine/avatar.json' });
+await avatar.speak({ pcm, sampleRate });   // モノラルの Float32Array
+```
+
+ブラウザ・React・Node.js（MP4・配信）・ZEN-TTS・会話の、そのまま動く例は [組み込みガイド](https://github.com/zenryokukikai/zen-lipsync/blob/main/docs/GUIDE.md)、関数の一覧は [API](https://github.com/zenryokukikai/zen-lipsync/blob/main/docs/API.md)。
+
 ## 関連リポジトリ
 
 | リポジトリ | 中身 |
