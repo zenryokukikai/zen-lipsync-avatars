@@ -2,8 +2,6 @@
 // about 155 MB) into examples/conversation/asr/model/ and checks each file's SHA-256. The files are not in this repository:
 // they are the assets of the GitHub release asr-k2v2-webgpu-1 (with the Apache-2.0 text and the modification notice).
 // usage: node scripts/fetch-asr.mjs [base URL]   (default: the release assets)
-// While this repository is private, set GITHUB_TOKEN (or GH_TOKEN) to a token that can read it: the files then come
-// through the GitHub API (release asset download). Without a token the public download URLs are used.
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
@@ -11,17 +9,7 @@ import crypto from 'node:crypto';
 const REPO = 'zenryokukikai/zen-lipsync-avatars';
 const TAG = 'asr-k2v2-webgpu-1';
 const base = (process.argv[2] ?? `https://github.com/${REPO}/releases/download/${TAG}`).replace(/\/$/, '');
-const token = process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN;
-/** name -> API URL of the release asset (only with a token and the default base). */
-let apiAssets = null;
-if (token && !process.argv[2]) {
-  const r = await fetch(`https://api.github.com/repos/${REPO}/releases/tags/${TAG}`, { headers: { authorization: `Bearer ${token}`, accept: 'application/vnd.github+json' } });
-  if (!r.ok) throw new Error(`release ${TAG}: HTTP ${r.status}`);
-  apiAssets = Object.fromEntries((await r.json()).assets.map((a) => [a.name, a.url]));
-}
-const get = (name) => apiAssets
-  ? fetch(apiAssets[name] ?? `missing:${name}`, { headers: { authorization: `Bearer ${token}`, accept: 'application/octet-stream' } })
-  : fetch(`${base}/${name}`);
+const get = (name) => fetch(`${base}/${name}`);
 const dir = new URL('../examples/conversation/asr/model/', import.meta.url).pathname;
 const files = {
   'model.json': '496d1b7efaecbec8db2fd42a39dcf6e84f3cc6cc0d3e5c0daae12ffac23a93af',
@@ -40,7 +28,7 @@ for (const [name, want] of Object.entries(files)) {
   const p = path.join(dir, name);
   if (fs.existsSync(p) && sha(fs.readFileSync(p)) === want) { total += fs.statSync(p).size; console.log('ok (cached)', name); continue; }
   const res = await get(name);
-  if (!res.ok) throw new Error(`${name}: HTTP ${res.status}${token ? '' : ' (private repository: set GITHUB_TOKEN)'}`);
+  if (!res.ok) throw new Error(`${name}: HTTP ${res.status}`);
   const buf = Buffer.from(await res.arrayBuffer());
   if (sha(buf) !== want) throw new Error(`${name}: SHA-256 mismatch`);
   fs.writeFileSync(p, buf);

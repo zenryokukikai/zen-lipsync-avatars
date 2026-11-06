@@ -115,7 +115,7 @@ pnpm serve              # http://localhost:8080/examples/conversation/ を開い
 ```
 
 - **流れ**：聞く → 話し終わる → 聞き取り → 返事を作る → マリンが最後まで話す → また聞く。マリンが話している間は、マイクを聞きません（自分の声を拾わないため）。
-- **声の聞き取り**：ReazonSpeech の「reazonspeech-k2-v2」（Apache-2.0）を WebGPU で動かします。1 回に約 15 秒までです（それより長いと、14 秒で区切ります）。話し声の検出は Silero VAD（MIT）です。どちらも [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) を見てください。モデルはこのリポジトリに入っていません。`pnpm fetch-asr` で、このリポジトリのリリース [asr-k2v2-webgpu-1](https://github.com/zenryokukikai/zen-lipsync-avatars/releases/tag/asr-k2v2-webgpu-1) から取ってきます（Apache-2.0。WebGPU 用に形式を変換しています。値は同じです）。このリポジトリが非公開のあいだは、読み取りできる GitHub のトークンを `GITHUB_TOKEN` に入れてから実行してください（例：`GITHUB_TOKEN=$(gh auth token) pnpm fetch-asr`）。
+- **声の聞き取り**：ReazonSpeech の「reazonspeech-k2-v2」（Apache-2.0）を WebGPU で動かします。1 回に約 15 秒までです（それより長いと、14 秒で区切ります）。話し声の検出は Silero VAD（MIT）です。どちらも [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) を見てください。モデルはこのリポジトリに入っていません。`pnpm fetch-asr` で、このリポジトリのリリース [asr-k2v2-webgpu-1](https://github.com/zenryokukikai/zen-lipsync-avatars/releases/tag/asr-k2v2-webgpu-1) から取ってきます（Apache-2.0。WebGPU 用に形式を変換しています。値は同じです）。
 - **返事を作る AI**：最初は通信しない「おうむ返し」です（キーなしで動きます）。「返事を作る AI の設定」で、OpenAI 互換の API（URL・API キー・モデル名）に切り替えられます。**API キーはこのブラウザの中（localStorage）にだけ保存し、会話の文章と一緒に、このブラウザから指定した URL へ直接送ります。** キーはリポジトリには入っていません。
 - **声の感情**：平静・喜び・悲しみ・怒り・申し訳なさから選べます。
 - **話させ方**：返事の文章は `speakText(avatar, tts, 文章, { emotion })`（`@zenryokukikai/zen-lipsync/tts`）で話させています。1 文ずつ ZEN-TTS で作り、できた文から順にリップシンクします。文と文の間にすき間はできません。
