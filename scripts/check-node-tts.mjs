@@ -21,7 +21,7 @@ let ok = true;
 const note = (k, pass, d) => { result[k] = { ok: pass, ...d }; if (!pass) ok = false; console.log(pass ? 'OK  ' : 'FAIL', k, JSON.stringify(d)); };
 
 const t0 = performance.now();
-const [avatar, tts] = await Promise.all([create({ avatar: 'marine', assetsPath }), ZenTtsNode.load({ modelsPath })]);
+const [avatar, tts] = await Promise.all([create({ avatar: 'marine', assetsPath }), ZenTtsNode.load({ modelsPath, model: `${modelsPath}marine.ztm` })]);
 result.load = { ms: Math.round(performance.now() - t0), lipKernel: avatar.kernel, ttsKernel: tts.kernel };
 console.log('loaded', result.load);
 await tts.speak('こんにちは。'); // warm-up

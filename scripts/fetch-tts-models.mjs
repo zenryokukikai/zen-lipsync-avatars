@@ -1,33 +1,29 @@
-// Downloads the ZEN-TTS models used by examples/conversation (the default voice, about 31 MB) from the ZEN-TTS
-// repository at the same version as package.json's zen-tts (v1.0.0), into examples/conversation/tts-models/,
-// and checks each file's SHA-256. The zen-tts package itself holds the code only.
+// Downloads the ZEN-TTS models used by examples/conversation, examples/node-tts and the checks (about 41 MB) into
+// examples/conversation/tts-models/, at the same version as package.json's zen-tts (v1.2.0), and checks each SHA-256:
+//   marine.ztm      the voice (one file, .ztm) from the ZEN-TTS CDN
+//   g2p/g2p.json, g2p/g2p.bin   the reading model (shared by every voice) from the zen-tts repository
+// The zen-tts package itself holds the code; the browser reads the G2P from <modelsUrl>/g2p/ and the voice from model.
 // usage: node scripts/fetch-tts-models.mjs
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import { execFileSync } from 'node:child_process';
 
-const REF = 'v1.0.0';
+const REF = 'v1.2.0';
 const dir = new URL('../examples/conversation/tts-models/', import.meta.url).pathname;
 const files = {
-  'tts/own.json': '70d7914d76a40ea2d21d2a85431c672614289ae74e3e41c614ce8b7309b5c674',
-  'tts/own.bin': '17be4d9b9a1689bd102fc04fb47b12b63c72a8cdcf0a680e37944bf5aca38040',
-  'decoder/nsf.json': '20ee3618c8f2adca88350456a3865a2168434fcc980ee7260dae247615624e2f',
-  'decoder/nsf.bin': 'f29a067c941b6707e498dacb01204742f062e1b8056f7a62b649537b2a9babd3',
+  'marine.ztm': [`https://tts-models.zenryoku.work/${REF}/marine.ztm`, 'c5f5ff04d43c3a742790856f4639f6d801e5c9a951a4f11ae800775fa0ed11d5'],
+  'g2p/g2p.json': [`https://raw.githubusercontent.com/zenryokukikai/zen-tts/${REF}/models/g2p/g2p.json`, '9354f73eaf3cd7161035a057a60294eb3c4bf03cab0c7532db3cdd3a6c3da454'],
+  'g2p/g2p.bin': [`https://raw.githubusercontent.com/zenryokukikai/zen-tts/${REF}/models/g2p/g2p.bin`, '33182b3f988e03b37b5553f1fd25f6992d57d0e7c1777a868c2755e42168a15e'],
 };
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
-/** One file of the repository at REF: the public raw URL, else (no access without login) through the gh CLI. */
-async function get(name) {
-  const res = await fetch(`https://raw.githubusercontent.com/zenryokukikai/zen-tts/${REF}/models/${name}`);
-  if (res.ok) return Buffer.from(await res.arrayBuffer());
-  return execFileSync('gh', ['api', '-H', 'Accept: application/vnd.github.raw', `repos/zenryokukikai/zen-tts/contents/models/${name}?ref=${REF}`], { maxBuffer: 64 << 20 });
-}
 let total = 0;
-for (const [name, want] of Object.entries(files)) {
+for (const [name, [url, want]] of Object.entries(files)) {
   const p = path.join(dir, name);
   fs.mkdirSync(path.dirname(p), { recursive: true });
   if (fs.existsSync(p) && sha(fs.readFileSync(p)) === want) { total += fs.statSync(p).size; console.log('ok (cached)', name); continue; }
-  const buf = await get(name);
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`${name}: HTTP ${res.status} (${url})`);
+  const buf = Buffer.from(await res.arrayBuffer());
   if (sha(buf) !== want) throw new Error(`${name}: SHA-256 mismatch`);
   fs.writeFileSync(p, buf);
   total += buf.length;
