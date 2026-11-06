@@ -168,10 +168,10 @@ importers:
     dependencies:
       '@zenryokukikai/zen-lipsync':
         specifier: github:zenryokukikai/zen-lipsync#v1.1.0
-        version: https://codeload.github.com/zenryokukikai/zen-lipsync/tar.gz/ebecdf09261ac137487d9b08d42e8aaeddb2ae98(react@19.3.1)(zen-tts@git+https://github.com/zenryokukikai/zen-tts.git#14b404d527a3d074de8e7ef28d44b14514400a40)
+        version: https://codeload.github.com/zenryokukikai/zen-lipsync/tar.gz/ebecdf09261ac137487d9b08d42e8aaeddb2ae98(react@19.3.1)(zen-tts@https://codeload.github.com/zenryokukikai/zen-tts/tar.gz/34fc2288e682bc87a6fccaf8d158c5c0647adccc)
       zen-tts:
-        specifier: github:zenryokukikai/zen-tts#v1.0.0
-        version: git+https://github.com/zenryokukikai/zen-tts.git#14b404d527a3d074de8e7ef28d44b14514400a40
+        specifier: github:zenryokukikai/zen-tts#v1.2.0
+        version: https://codeload.github.com/zenryokukikai/zen-tts/tar.gz/34fc2288e682bc87a6fccaf8d158c5c0647adccc
     devDependencies:
       '@types/react':
         specifier: ^19.3.0
@@ -544,9 +544,9 @@ packages:
       utf-8-validate:
         optional: true
 
-  zen-tts@git+https://github.com/zenryokukikai/zen-tts.git#14b404d527a3d074de8e7ef28d44b14514400a40:
-    resolution: {commit: 14b404d527a3d074de8e7ef28d44b14514400a40, repo: https://github.com/zenryokukikai/zen-tts.git, type: git}
-    version: 1.0.0
+  zen-tts@https://codeload.github.com/zenryokukikai/zen-tts/tar.gz/34fc2288e682bc87a6fccaf8d158c5c0647adccc:
+    resolution: {gitHosted: true, integrity: sha512-DlYw+62z9xW9TL4croc3tn5VKMxcLrFMSfX+GLZeolAXH3v30pMPwijYgVpcFeeRr5hu4L3EGOo0BbYb4HU5cA==, tarball: https://codeload.github.com/zenryokukikai/zen-tts/tar.gz/34fc2288e682bc87a6fccaf8d158c5c0647adccc}
+    version: 1.2.0
     engines: {node: '>=26.12.1'}
 
 snapshots:
@@ -697,10 +697,10 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
-  '@zenryokukikai/zen-lipsync@https://codeload.github.com/zenryokukikai/zen-lipsync/tar.gz/ebecdf09261ac137487d9b08d42e8aaeddb2ae98(react@19.3.1)(zen-tts@git+https://github.com/zenryokukikai/zen-tts.git#14b404d527a3d074de8e7ef28d44b14514400a40)':
+  '@zenryokukikai/zen-lipsync@https://codeload.github.com/zenryokukikai/zen-lipsync/tar.gz/ebecdf09261ac137487d9b08d42e8aaeddb2ae98(react@19.3.1)(zen-tts@https://codeload.github.com/zenryokukikai/zen-tts/tar.gz/34fc2288e682bc87a6fccaf8d158c5c0647adccc)':
     optionalDependencies:
       react: 19.3.1
-      zen-tts: git+https://github.com/zenryokukikai/zen-tts.git#14b404d527a3d074de8e7ef28d44b14514400a40
+      zen-tts: https://codeload.github.com/zenryokukikai/zen-tts/tar.gz/34fc2288e682bc87a6fccaf8d158c5c0647adccc
 
   csstype@3.2.3: {}
 
@@ -773,4 +773,4 @@ snapshots:
 
   ws@8.22.0: {}
 
-  zen-tts@git+https://github.com/zenryokukikai/zen-tts.git#14b404d527a3d074de8e7ef28d44b14514400a40: {}
+  zen-tts@https://codeload.github.com/zenryokukikai/zen-tts/tar.gz/34fc2288e682bc87a6fccaf8d158c5c0647adccc: {}

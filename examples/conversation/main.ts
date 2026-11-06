@@ -86,8 +86,8 @@ async function load(): Promise<void> {
       container: $('stage'), assetsBaseUrl: ASSETS, avatar: 'avatars/marine/avatar.json',
       onProgress: (p) => progress('pAvatar', p.loadedBytes, 44e6),
     }).then((a) => { avatar = a; progress('pAvatar', 44e6, 44e6, true); });
-    const ttsP = ZenTts.load({ modelsUrl: TTS_MODELS, backend: 'webgpu', device })
-      .then((t) => { tts = t; progress('pTts', 31e6, 31e6, true); });
+    const ttsP = ZenTts.load({ modelsUrl: TTS_MODELS, model: `${TTS_MODELS.replace(/\/$/, '')}/marine.ztm`, backend: 'webgpu', device })
+      .then((t) => { tts = t; progress('pTts', 41e6, 41e6, true); });
     const asrP = WgslOfflineRecognizer.create(device, ASR_MODEL, ASR_MAX_FRAMES, (_files, bytes) => progress('pAsr', bytes, 155.1e6))
       .then((r) => { asr = r; progress('pAsr', r.downloadBytes, r.downloadBytes, true); });
     const vadP = Listener.create(VAD_URL, {

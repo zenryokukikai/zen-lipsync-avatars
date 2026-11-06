@@ -14,5 +14,5 @@ allowBuilds:
   # esbuild (dev tool for pnpm build) installs its platform binary with a postinstall script
   esbuild: true
   '@zenryokukikai/zen-lipsync@https://codeload.github.com/zenryokukikai/zen-lipsync/tar.gz/ebecdf09261ac137487d9b08d42e8aaeddb2ae98': true
-  # ZEN-TTS (examples/conversation), from GitHub (tag v1.0.0); same rule
-  'zen-tts@git+https://github.com/zenryokukikai/zen-tts.git#14b404d527a3d074de8e7ef28d44b14514400a40': true
+  # ZEN-TTS (examples/conversation), from GitHub (tag v1.2.0); same rule
+  'zen-tts@https://codeload.github.com/zenryokukikai/zen-tts/tar.gz/34fc2288e682bc87a6fccaf8d158c5c0647adccc': true

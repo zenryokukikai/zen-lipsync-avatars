@@ -109,7 +109,7 @@ pnpm fetch-tts-models && pnpm node:tts ["文章"] [出力.mp4] [--emotion happy]
 ```bash
 pnpm install
 pnpm fetch-asr          # 声の聞き取りのモデル（約 155 MB）を examples/conversation/asr/model/ に取ってくる
-pnpm fetch-tts-models   # ZEN-TTS のモデル（約 31 MB）を examples/conversation/tts-models/ に取ってくる
+pnpm fetch-tts-models   # ZEN-TTS のモデル（約 41 MB）を examples/conversation/tts-models/ に取ってくる
 pnpm build
 pnpm serve              # http://localhost:8080/examples/conversation/ を開いて「会話を始める」
 ```

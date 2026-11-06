@@ -5,12 +5,13 @@ import { ZenTts } from 'zen-tts';
 
 const q = new URLSearchParams(location.search);
 const w = window as unknown as Record<string, unknown>;
+const ttsModels = (q.get('ttsmodels') ?? new URL('../examples/conversation/tts-models', location.href).href).replace(/\/$/, '');
 w['__ttsCheck'] = async (text: string) => {
   const adapter = await (navigator as unknown as { gpu: { requestAdapter(): Promise<{ requestDevice(): Promise<unknown> }> } }).gpu.requestAdapter();
   const device = await adapter.requestDevice();
   const [avatar, tts] = await Promise.all([
     create({ container: document.getElementById('box')!, assetsBaseUrl: q.get('assets') ?? new URL('../', location.href).href, avatar: 'avatars/marine/avatar.json' }),
-    ZenTts.load({ modelsUrl: q.get('ttsmodels') ?? new URL('../examples/conversation/tts-models', location.href).href, backend: 'webgpu', device }),
+    ZenTts.load({ modelsUrl: ttsModels, model: `${ttsModels}/marine.ztm`, backend: 'webgpu', device }),
   ]);
   // warm both (the first synthesis compiles the GPU pipelines); a first short speak() also starts the page's audio
   // clock, so the timing below is the speech itself (a browser starts the audio device up to ~2 s after resume())

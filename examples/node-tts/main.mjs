@@ -14,9 +14,9 @@ const text = args[0] || 'こんにちは、全力マリンです。今日は、�
 const out = args[1] || 'marine-tts.mp4';
 
 const assetsPath = fileURLToPath(new URL('../../', import.meta.url)); // this repository (avatars/marine/...)
-const modelsPath = fileURLToPath(new URL('../conversation/tts-models/', import.meta.url));
+const modelsPath = fileURLToPath(new URL('../conversation/tts-models/', import.meta.url)); // marine.ztm and g2p/
 
-const [avatar, tts] = await Promise.all([create({ avatar: 'marine', assetsPath }), ZenTtsNode.load({ modelsPath })]);
+const [avatar, tts] = await Promise.all([create({ avatar: 'marine', assetsPath }), ZenTtsNode.load({ modelsPath, model: `${modelsPath}marine.ztm` })]);
 console.log(`loaded (lip-sync frame model: ${avatar.kernel}, ZEN-TTS kernels: ${tts.kernel})`);
 const t0 = performance.now();
 const r = await renderText(avatar, tts, text, {
