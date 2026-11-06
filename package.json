@@ -1,6 +1,6 @@
 {
   "name": "zen-lipsync-avatars",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "private": true,
   "engines": {
     "node": ">=26.12.1"
@@ -25,7 +25,7 @@
     "bench:lipsync": "node scripts/bench-lipsync.mjs"
   },
   "dependencies": {
-    "@zenryokukikai/zen-lipsync": "github:zenryokukikai/zen-lipsync#v1.1.1",
+    "@zenryokukikai/zen-lipsync": "github:zenryokukikai/zen-lipsync#v1.1.2",
     "zen-tts": "github:zenryokukikai/zen-tts#v1.2.0"
   },
   "devDependencies": {
