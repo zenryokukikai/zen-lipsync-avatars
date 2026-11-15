@@ -51,6 +51,7 @@ await avatar.speak({ pcm, sampleRate });   // モノラルの Float32Array
 | [zenryokukikai/zen-lipsync-avatars](https://github.com/zenryokukikai/zen-lipsync-avatars)（このリポジトリ） | アバター「全力 マリン」「全力 ハシロウ」「全力 キッカ」のモデルと素材、デモ、使い方の例 |
 | [zenryokukikai/zen-lipsync](https://github.com/zenryokukikai/zen-lipsync) | ZEN-LipSync の SDK（`@zenryokukikai/zen-lipsync`） |
 | [zenryokukikai/zen-tts](https://github.com/zenryokukikai/zen-tts) | ZEN-TTS 本体：4 人分の声のモデル、ブラウザ用と Node 用の実行部分 |
+| [Zenryokukikai/zen-lipsync](https://huggingface.co/Zenryokukikai/zen-lipsync)（Hugging Face） | このリポジトリの `avatars/`（3 人のアバターパック）と同じファイル。`v1.1.3` のタグで、バイト単位で同じです |
 
 GitHub のリポジトリを指定して入れます（`v1.1.3` のタグで固定）。
 
