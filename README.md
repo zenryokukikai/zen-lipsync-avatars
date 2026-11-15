@@ -5,7 +5,7 @@
 
 超軽量で超高速な実写リップシンク「ZEN-LipSync」の、アバターです。音声に合わせて、全力 マリン（ぜんりょく まりん）、全力 ハシロウ（ぜんりょく はしろう）、全力 キッカ（ぜんりょく きっか）をリアルタイムにリップシンクできます。
 
-バージョン 1.1.2（アバターのモデル marine-1.0 / hashiro-1.0 / kikka-1.0）。口元の画像は 1 本の待機映像ごとに 1 ファイル（frames.pack、WebP）にまとめています（アバターパックの形式 2。ZEN-LipSync 1.1.0 以降で読めます）。
+バージョン 1.1.3（アバターのモデル marine-1.0 / hashiro-1.0 / kikka-1.0）。口元の画像は 1 本の待機映像ごとに 1 ファイル（frames.pack、WebP）にまとめています（アバターパックの形式 2。ZEN-LipSync 1.1.0 以降で読めます）。
 
 > **ZEN-LipSync は、同梱のアバター（全力 マリン／全力 ハシロウ／全力 キッカ）専用のリップシンクモデルです。** 汎用モデルではなく、ほかの顔・映像では動きません。新しいアバターのモデル作成は、全力機械にご依頼ください（https://zenryokukikai.com ）。
 
@@ -14,7 +14,7 @@
 ## 組み込み方
 
 ```sh
-npm i github:zenryokukikai/zen-lipsync#v1.1.2 github:zenryokukikai/zen-lipsync-avatars#v1.1.2
+npm i github:zenryokukikai/zen-lipsync#v1.1.2 github:zenryokukikai/zen-lipsync-avatars#v1.1.3
 ```
 
 ```js
@@ -24,6 +24,13 @@ await avatar.speak({ pcm, sampleRate });   // モノラルの Float32Array
 ```
 
 ブラウザ・React・Node.js（MP4・配信）・ZEN-TTS・会話の、そのまま動く例は [組み込みガイド](https://github.com/zenryokukikai/zen-lipsync/blob/v1.1.2/docs/GUIDE.md)、関数の一覧は [API](https://github.com/zenryokukikai/zen-lipsync/blob/v1.1.2/docs/API.md)。
+
+## 1.1.3 の変更
+
+- 話している間の口元の色を直しました。これまでは、口元の変化を足すときに、色ごとの変換表（`tone.json`）を通していました。この表で、暗い画素の色合いがわずかにずれ、口の中が青っぽく見えることがありました。今は、モデルが出した変化をそのまま足します。四角の端は、これまでどおり SDK がぼかします。
+- 5 つの待機映像（マリンの normal・angry、ハシロウの normal・angry、キッカの normal）の `tone.json` を、何も変えない表にしました。ファイルは残しているので、SDK 1.1.0 以降でそのまま読めます（SDK は 1.1.2 のままです）。
+- アバターのモデル（marine-1.0 / hashiro-1.0 / kikka-1.0）、待機映像、口元の画像は変わっていません。
+- 前の版に戻すときは、`#v1.1.3` を `#v1.1.2` にしてください。
 
 ## 1.1.2 の変更
 
@@ -45,10 +52,10 @@ await avatar.speak({ pcm, sampleRate });   // モノラルの Float32Array
 | [zenryokukikai/zen-lipsync](https://github.com/zenryokukikai/zen-lipsync) | ZEN-LipSync の SDK（`@zenryokukikai/zen-lipsync`） |
 | [zenryokukikai/zen-tts](https://github.com/zenryokukikai/zen-tts) | ZEN-TTS 本体：4 人分の声のモデル、ブラウザ用と Node 用の実行部分 |
 
-GitHub のリポジトリを指定して入れます（`v1.1.2` のタグで固定）。
+GitHub のリポジトリを指定して入れます（`v1.1.3` のタグで固定）。
 
 ```sh
-npm i github:zenryokukikai/zen-lipsync-avatars#v1.1.2
+npm i github:zenryokukikai/zen-lipsync-avatars#v1.1.3
 npm i github:zenryokukikai/zen-lipsync#v1.1.2
 ```
 
@@ -58,11 +65,11 @@ npm i github:zenryokukikai/zen-lipsync#v1.1.2
 
 ```sh
 # npm
-npm i github:zenryokukikai/zen-lipsync-avatars#v1.1.2
+npm i github:zenryokukikai/zen-lipsync-avatars#v1.1.3
 # pnpm
-pnpm add github:zenryokukikai/zen-lipsync-avatars#v1.1.2
+pnpm add github:zenryokukikai/zen-lipsync-avatars#v1.1.3
 # yarn
-yarn add github:zenryokukikai/zen-lipsync-avatars#v1.1.2
+yarn add github:zenryokukikai/zen-lipsync-avatars#v1.1.3
 ```
 
 - このリポジトリは、アバターの素材と例の集まりです。ふつうは、リポジトリを取ってきて、`pnpm install` で開発用の道具を入れます（下の「動かす」）。
