@@ -31,6 +31,22 @@ def sha(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def build_frames_pack(images: list) -> tuple:
+    """frames.pack bytes from [(crop WebP bytes, alpha WebP bytes), ...] in source-frame order, and its index entries."""
+    # the index length depends on the offsets and the offsets on the index length: repeat until they agree
+    head = 0
+    while True:
+        frames, o = [], 12 + head
+        for c, a in images:
+            frames.append([o, len(c), o + len(c), len(a)])
+            o += len(c) + len(a)
+        index = json.dumps({'type': 'image/webp', 'frames': frames}, separators=(',', ':')).encode()
+        if len(index) == head:
+            break
+        head = len(index)
+    return MAGIC + struct.pack('<I', len(index)) + index + b''.join(c + a for c, a in images), frames
+
+
 def pack_dir(d: str) -> None:
     mf = os.path.join(d, 'manifest.json')
     m = json.load(open(mf, encoding='utf-8'))
@@ -47,18 +63,7 @@ def pack_dir(d: str) -> None:
         if crop.size != (x1 - x0, y1 - y0) or alpha.size != (rw, rh):
             raise SystemExit(f'{d}: frame {u} size does not match its geometry')
         images.append((webp(crop), webp(alpha), crop.size, alpha.size))
-    # the index length depends on the offsets and the offsets on the index length: repeat until they agree
-    head = 0
-    while True:
-        frames, o = [], 12 + head
-        for c, a, _, _ in images:
-            frames.append([o, len(c), o + len(c), len(a)])
-            o += len(c) + len(a)
-        index = json.dumps({'type': 'image/webp', 'frames': frames}, separators=(',', ':')).encode()
-        if len(index) == head:
-            break
-        head = len(index)
-    data = MAGIC + struct.pack('<I', len(index)) + index + b''.join(c + a for c, a, _, _ in images)
+    data, frames = build_frames_pack([(c, a) for c, a, _, _ in images])
     # check: every image decodes to its PNG's size
     for u, (f, (_, _, cs, as_)) in enumerate(zip(frames, images)):
         if Image.open(io.BytesIO(data[f[0]:f[0] + f[1]])).size != cs or Image.open(io.BytesIO(data[f[2]:f[2] + f[3]])).size != as_:
