@@ -2,6 +2,7 @@
 
 - `marine/`：アバター「全力 マリン（ぜんりょく まりん）」。`avatar.json` から読み込みます（SDK の `create({ avatar: "avatars/marine/avatar.json" })`）。
   - `normal/`、`angry/`：待機映像ごとのアバターパック（形式は [SDK の docs/AVATAR-PACK.md](https://github.com/zenryokukikai/zen-lipsync/blob/main/docs/AVATAR-PACK.md)）
+    - `mouth_open_dir.f32`：口が開く向き。口の開き具合（SDK 1.4.0 以降の `mouthOpen`）に使います
   - `models/`：2 つの待機映像で共通のモデル（`frame.i8.wgw`、`frame.lip8`、`sentence.wgw`）
   - `idle-switch.json`：待機映像を切り替えるときの、似たフレームの対応表
 - `hashiro/`：アバター「全力 ハシロウ（ぜんりょく はしろう）」。読み込みは `create({ avatar: "avatars/hashiro/avatar.json" })`。

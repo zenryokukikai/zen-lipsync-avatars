@@ -5,7 +5,7 @@
 
 超軽量で超高速な実写リップシンク「ZEN-LipSync」の、アバターです。音声に合わせて、全力 マリン（ぜんりょく まりん）、全力 ハシロウ（ぜんりょく はしろう）、全力 キッカ（ぜんりょく きっか）をリアルタイムにリップシンクできます。
 
-バージョン 1.1.3（アバターのモデル marine-1.0 / hashiro-1.0 / kikka-1.0）。口元の画像は 1 本の待機映像ごとに 1 ファイル（frames.pack、WebP）にまとめています（アバターパックの形式 2。ZEN-LipSync 1.1.0 以降で読めます）。
+バージョン 1.1.4（アバターのモデル marine-1.0 / hashiro-1.0 / kikka-1.0）。口元の画像は 1 本の待機映像ごとに 1 ファイル（frames.pack、WebP）にまとめています（アバターパックの形式 2。ZEN-LipSync 1.1.0 以降で読めます）。
 
 > **ZEN-LipSync は、同梱のアバター（全力 マリン／全力 ハシロウ／全力 キッカ）専用のリップシンクモデルです。** 汎用モデルではなく、ほかの顔・映像では動きません。新しいアバターのモデル作成は、全力機械にご依頼ください（https://zenryokukikai.com ）。
 
@@ -14,7 +14,7 @@
 ## 組み込み方
 
 ```sh
-npm i github:zenryokukikai/zen-lipsync#v1.1.2 github:zenryokukikai/zen-lipsync-avatars#v1.1.3
+npm i github:zenryokukikai/zen-lipsync#v1.4.0 github:zenryokukikai/zen-lipsync-avatars#v1.1.4
 ```
 
 ```js
@@ -23,7 +23,15 @@ const avatar = await create({ container: document.getElementById('avatar'), asse
 await avatar.speak({ pcm, sampleRate });   // モノラルの Float32Array
 ```
 
-ブラウザ・React・Node.js（MP4・配信）・ZEN-TTS・会話の、そのまま動く例は [組み込みガイド](https://github.com/zenryokukikai/zen-lipsync/blob/v1.1.2/docs/GUIDE.md)、関数の一覧は [API](https://github.com/zenryokukikai/zen-lipsync/blob/v1.1.2/docs/API.md)。
+ブラウザ・React・Node.js（MP4・配信）・ZEN-TTS・会話の、そのまま動く例は [組み込みガイド](https://github.com/zenryokukikai/zen-lipsync/blob/v1.4.0/docs/GUIDE.md)、関数の一覧は [API](https://github.com/zenryokukikai/zen-lipsync/blob/v1.4.0/docs/API.md)。
+
+## 1.1.4 の変更
+
+- 口の開き具合を変えられるようにしました（SDK 1.4.0 の `create({ mouthOpen: { scale: 0.7 } })`・`setMouthOpen()`）。5 つの待機映像（マリンの normal・angry、ハシロウの normal・angry、キッカの normal）に、口が開く向きのファイル `mouth_open_dir.f32` を足しました。`scale` が 1（または指定なし）のときは、1.1.3 とまったく同じ映像です。
+- 効き方はアバターごとに違います。同じ 0.5 でも、マリンはよく閉じ、キッカはその中間、ハシロウは控えめです。見ながら決めてください。
+- SDK を 1.4.0 にしました。SDK 1.3.0 以前でも、このパックはそのまま読めます（`mouth_open_dir.f32` は使われません）。
+- アバターのモデル（marine-1.0 / hashiro-1.0 / kikka-1.0）、待機映像、口元の画像は変わっていません。
+- 前の版に戻すときは、`#v1.1.4` を `#v1.1.3` にしてください。
 
 ## 1.1.3 の変更
 
