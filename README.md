@@ -29,6 +29,7 @@ await avatar.speak({ pcm, sampleRate });   // モノラルの Float32Array
 
 - アバターの推論中の描画を改善しました。
 - 口の開き具合を変えられるようにしました（SDK 1.4.0 の `mouthOpen`）。
+- 背景を抜いた表示（`matte`）に使う映像を入れました（入れ忘れていました）。
 - 前のバージョンに戻すときは、`#v1.1.4` を `#v1.1.3` にしてください。
 
 ## 1.1.3 の変更
@@ -92,9 +93,9 @@ yarn add github:zenryokukikai/zen-lipsync-avatars#v1.1.3
 
 | アバター | id | モデル | 中身 | 大きさ |
 |---|---|---|---|---|
-| 全力 マリン（Zenryoku Marine） | `marine` | marine-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 2 種・口元の画像・特徴データ）、試し用の音声 | 51 MB |
-| 全力 ハシロウ（Zenryoku Hashiro） | `hashiro` | hashiro-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 2 種・口元の画像・特徴データ） | 57 MB |
-| 全力 キッカ（Zenryoku Kikka） | `kikka` | kikka-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 1 種・口元の画像・特徴データ） | 36 MB |
+| 全力 マリン（Zenryoku Marine） | `marine` | marine-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 2 種・口元の画像・特徴データ・切り抜き映像）、試し用の音声 | 58 MB |
+| 全力 ハシロウ（Zenryoku Hashiro） | `hashiro` | hashiro-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 2 種・口元の画像・特徴データ・切り抜き映像） | 65 MB |
+| 全力 キッカ（Zenryoku Kikka） | `kikka` | kikka-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 1 種・口元の画像・特徴データ・切り抜き映像） | 40 MB |
 
 - `avatars/marine/`、`avatars/hashiro/`、`avatars/kikka/`：それぞれのアバターのリップシンクのモデルと素材です。
   - 待機映像は、マリンとハシロウが 2 種類（ふつう `normal/` と怒り `angry/`）、キッカが 1 種類（`normal/`）です。話していない間に、似たフレームを選んで 0.3 秒で切り替えられます（`setIdle`）。
