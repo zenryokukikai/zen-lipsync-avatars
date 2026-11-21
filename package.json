@@ -25,7 +25,7 @@
     "bench:lipsync": "node scripts/bench-lipsync.mjs"
   },
   "dependencies": {
-    "@zenryokukikai/zen-lipsync": "github:zenryokukikai/zen-lipsync#v1.1.2",
+    "@zenryokukikai/zen-lipsync": "github:zenryokukikai/zen-lipsync#v1.4.0",
     "zen-tts": "github:zenryokukikai/zen-tts#v1.2.0"
   },
   "devDependencies": {
