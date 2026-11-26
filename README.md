@@ -5,7 +5,7 @@
 
 超軽量で超高速な実写リップシンク「ZEN-LipSync」の、アバターです。音声に合わせて、全力 マリン（ぜんりょく まりん）、全力 ハシロウ（ぜんりょく はしろう）、全力 キッカ（ぜんりょく きっか）をリアルタイムにリップシンクできます。
 
-バージョン 1.1.4（アバターのモデル marine-1.0 / hashiro-1.0 / kikka-1.0）。口元の画像は 1 本の待機映像ごとに 1 ファイル（frames.pack、WebP）にまとめています（アバターパックの形式 2。ZEN-LipSync 1.1.0 以降で読めます）。
+バージョン 1.2.0（アバターのモデル marine-2.0 / hashiro-2.0 / kikka-2.0）。モデルが口元そのものを描く形です（アバターパックの形式 3。**ZEN-LipSync 1.5.0 以降で読めます**。1.4.0 以前の SDK は読み込みを止めます）。
 
 > **ZEN-LipSync は、同梱のアバター（全力 マリン／全力 ハシロウ／全力 キッカ）専用のリップシンクモデルです。** 汎用モデルではなく、ほかの顔・映像では動きません。新しいアバターのモデル作成は、全力機械にご依頼ください（https://zenryokukikai.com ）。
 
@@ -14,7 +14,7 @@
 ## 組み込み方
 
 ```sh
-npm i github:zenryokukikai/zen-lipsync#v1.4.0 github:zenryokukikai/zen-lipsync-avatars#v1.1.4
+npm i github:zenryokukikai/zen-lipsync#v1.5.0 github:zenryokukikai/zen-lipsync-avatars#v1.2.0
 ```
 
 ```js
@@ -23,7 +23,14 @@ const avatar = await create({ container: document.getElementById('avatar'), asse
 await avatar.speak({ pcm, sampleRate });   // モノラルの Float32Array
 ```
 
-ブラウザ・React・Node.js（MP4・配信）・ZEN-TTS・会話の、そのまま動く例は [組み込みガイド](https://github.com/zenryokukikai/zen-lipsync/blob/v1.4.0/docs/GUIDE.md)、関数の一覧は [API](https://github.com/zenryokukikai/zen-lipsync/blob/v1.4.0/docs/API.md)。
+ブラウザ・React・Node.js（MP4・配信）・ZEN-TTS・会話の、そのまま動く例は [組み込みガイド](https://github.com/zenryokukikai/zen-lipsync/blob/v1.5.0/docs/GUIDE.md)、関数の一覧は [API](https://github.com/zenryokukikai/zen-lipsync/blob/v1.5.0/docs/API.md)。
+
+## 1.2.0 の変更
+
+- 3 人のアバターの口元を描き直し、くっきりさせました（歯の区切り、唇の輪郭）。モデルが口元そのものを描き、それを待機映像にそのまま重ねます。待機映像の口が透けて二重に見えることもありません。
+- アバターのモデルを marine-2.0 / hashiro-2.0 / kikka-2.0 にしました。待機映像・切り抜き映像・口の開く向き（`mouth_open_dir.f32`）は 1.1.4 と同じです。
+- **SDK 1.5.0 以降が要ります**（`#v1.5.0`）。1.4.0 以前の SDK は、このパックを「version 1 or 2」のエラーで読み込みません。
+- 前のバージョンに戻すときは、`#v1.2.0` を `#v1.1.4` に、SDK を `#v1.4.0` にしてください（SDK 1.5.0 のままでも 1.1.4 は読めます）。
 
 ## 1.1.4 の変更
 
@@ -58,13 +65,13 @@ await avatar.speak({ pcm, sampleRate });   // モノラルの Float32Array
 | [zenryokukikai/zen-lipsync-avatars](https://github.com/zenryokukikai/zen-lipsync-avatars)（このリポジトリ） | アバター「全力 マリン」「全力 ハシロウ」「全力 キッカ」のモデルと素材、デモ、使い方の例 |
 | [zenryokukikai/zen-lipsync](https://github.com/zenryokukikai/zen-lipsync) | ZEN-LipSync の SDK（`@zenryokukikai/zen-lipsync`） |
 | [zenryokukikai/zen-tts](https://github.com/zenryokukikai/zen-tts) | ZEN-TTS 本体：4 人分の声のモデル、ブラウザ用と Node 用の実行部分 |
-| [Zenryokukikai/zen-lipsync](https://huggingface.co/Zenryokukikai/zen-lipsync)（Hugging Face） | このリポジトリの `avatars/`（3 人のアバターパック）と同じファイル。`v1.1.3` のタグで、バイト単位で同じです |
+| [Zenryokukikai/zen-lipsync](https://huggingface.co/Zenryokukikai/zen-lipsync)（Hugging Face） | このリポジトリの `avatars/`（3 人のアバターパック）と同じファイル。`v1.2.0` のタグで、バイト単位で同じです |
 
-GitHub のリポジトリを指定して入れます（`v1.1.3` のタグで固定）。
+GitHub のリポジトリを指定して入れます（`v1.2.0` のタグで固定）。
 
 ```sh
-npm i github:zenryokukikai/zen-lipsync-avatars#v1.1.3
-npm i github:zenryokukikai/zen-lipsync#v1.1.2
+npm i github:zenryokukikai/zen-lipsync-avatars#v1.2.0
+npm i github:zenryokukikai/zen-lipsync#v1.5.0
 ```
 
 ## 入れ方
@@ -73,15 +80,15 @@ npm i github:zenryokukikai/zen-lipsync#v1.1.2
 
 ```sh
 # npm
-npm i github:zenryokukikai/zen-lipsync-avatars#v1.1.3
+npm i github:zenryokukikai/zen-lipsync-avatars#v1.2.0
 # pnpm
-pnpm add github:zenryokukikai/zen-lipsync-avatars#v1.1.3
+pnpm add github:zenryokukikai/zen-lipsync-avatars#v1.2.0
 # yarn
-yarn add github:zenryokukikai/zen-lipsync-avatars#v1.1.3
+yarn add github:zenryokukikai/zen-lipsync-avatars#v1.2.0
 ```
 
 - このリポジトリは、アバターの素材と例の集まりです。ふつうは、リポジトリを取ってきて、`pnpm install` で開発用の道具を入れます（下の「動かす」）。
-- リポジトリの中の SDK は、決まったコミットで固定しています（`package.json` の `github:zenryokukikai/zen-lipsync#<コミット>`）。このコミットは SDK の 1.1.2 のもので、タグ `v1.1.2` と同じ中身です。アバターパックの形式 2（`frames.pack`）は SDK 1.1.0 以降で読めます。
+- リポジトリの中の SDK は、タグで固定しています（`package.json` の `github:zenryokukikai/zen-lipsync#v1.5.0`）。アバターパックの形式 3 は SDK 1.5.0 以降で読めます。
 - 使う Node.js は 26.12.1 です（`.mise.toml` で固定）。
 - 音声合成のモデルは、`pnpm fetch-tts-models` で取ってきます（下のとおり）。
 
@@ -93,9 +100,9 @@ yarn add github:zenryokukikai/zen-lipsync-avatars#v1.1.3
 
 | アバター | id | モデル | 中身 | 大きさ |
 |---|---|---|---|---|
-| 全力 マリン（Zenryoku Marine） | `marine` | marine-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 2 種・口元の画像・特徴データ・切り抜き映像）、試し用の音声 | 58 MB |
-| 全力 ハシロウ（Zenryoku Hashiro） | `hashiro` | hashiro-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 2 種・口元の画像・特徴データ・切り抜き映像） | 65 MB |
-| 全力 キッカ（Zenryoku Kikka） | `kikka` | kikka-1.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 1 種・口元の画像・特徴データ・切り抜き映像） | 40 MB |
+| 全力 マリン（Zenryoku Marine） | `marine` | marine-2.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 2 種・口元の画像と口のマスク・特徴データ・切り抜き映像）、試し用の音声 | 81 MB |
+| 全力 ハシロウ（Zenryoku Hashiro） | `hashiro` | hashiro-2.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 2 種・口元の画像と口のマスク・特徴データ・切り抜き映像） | 91 MB |
+| 全力 キッカ（Zenryoku Kikka） | `kikka` | kikka-2.0 | モデル（int8 のフレームモデル 2.7 MB、文モデル 11.8 MB）と素材（待機映像 1 種・口元の画像と口のマスク・特徴データ・切り抜き映像） | 53 MB |
 
 - `avatars/marine/`、`avatars/hashiro/`、`avatars/kikka/`：それぞれのアバターのリップシンクのモデルと素材です。
   - 待機映像は、マリンとハシロウが 2 種類（ふつう `normal/` と怒り `angry/`）、キッカが 1 種類（`normal/`）です。話していない間に、似たフレームを選んで 0.3 秒で切り替えられます（`setIdle`）。
