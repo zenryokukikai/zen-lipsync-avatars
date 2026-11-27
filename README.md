@@ -14,7 +14,7 @@
 ## 組み込み方
 
 ```sh
-npm i github:zenryokukikai/zen-lipsync#v1.5.1 github:zenryokukikai/zen-lipsync-avatars#v1.2.1
+npm i github:zenryokukikai/zen-lipsync#v1.5.2 github:zenryokukikai/zen-lipsync-avatars#v1.2.2
 ```
 
 ```js
@@ -23,7 +23,12 @@ const avatar = await create({ container: document.getElementById('avatar'), asse
 await avatar.speak({ pcm, sampleRate });   // モノラルの Float32Array
 ```
 
-ブラウザ・React・Node.js（MP4・配信）・ZEN-TTS・会話の、そのまま動く例は [組み込みガイド](https://github.com/zenryokukikai/zen-lipsync/blob/v1.5.1/docs/GUIDE.md)、関数の一覧は [API](https://github.com/zenryokukikai/zen-lipsync/blob/v1.5.1/docs/API.md)。
+ブラウザ・React・Node.js（MP4・配信）・ZEN-TTS・会話の、そのまま動く例は [組み込みガイド](https://github.com/zenryokukikai/zen-lipsync/blob/v1.5.2/docs/GUIDE.md)、関数の一覧は [API](https://github.com/zenryokukikai/zen-lipsync/blob/v1.5.2/docs/API.md)。
+
+## 1.2.2 の変更
+
+- ZEN-LipSync 1.5.2（セリフの途中の短い間で口が 1 コマだけ閉じる問題の直し）を使うようにしました。アバターは 1.2.0 と同じです。
+- 前のバージョンに戻すときは、`#v1.2.2` を `#v1.2.1` にしてください。
 
 ## 1.2.1 の変更
 
@@ -72,11 +77,11 @@ await avatar.speak({ pcm, sampleRate });   // モノラルの Float32Array
 | [zenryokukikai/zen-tts](https://github.com/zenryokukikai/zen-tts) | ZEN-TTS 本体：4 人分の声のモデル、ブラウザ用と Node 用の実行部分 |
 | [Zenryokukikai/zen-lipsync](https://huggingface.co/Zenryokukikai/zen-lipsync)（Hugging Face） | このリポジトリの `avatars/`（3 人のアバターパック）と同じファイル。`v1.2.0` のタグで、バイト単位で同じです |
 
-GitHub のリポジトリを指定して入れます（`v1.2.1` のタグで固定）。
+GitHub のリポジトリを指定して入れます（`v1.2.2` のタグで固定）。
 
 ```sh
-npm i github:zenryokukikai/zen-lipsync-avatars#v1.2.1
-npm i github:zenryokukikai/zen-lipsync#v1.5.1
+npm i github:zenryokukikai/zen-lipsync-avatars#v1.2.2
+npm i github:zenryokukikai/zen-lipsync#v1.5.2
 ```
 
 ## 入れ方
@@ -85,15 +90,15 @@ npm i github:zenryokukikai/zen-lipsync#v1.5.1
 
 ```sh
 # npm
-npm i github:zenryokukikai/zen-lipsync-avatars#v1.2.1
+npm i github:zenryokukikai/zen-lipsync-avatars#v1.2.2
 # pnpm
-pnpm add github:zenryokukikai/zen-lipsync-avatars#v1.2.1
+pnpm add github:zenryokukikai/zen-lipsync-avatars#v1.2.2
 # yarn
-yarn add github:zenryokukikai/zen-lipsync-avatars#v1.2.1
+yarn add github:zenryokukikai/zen-lipsync-avatars#v1.2.2
 ```
 
 - このリポジトリは、アバターの素材と例の集まりです。ふつうは、リポジトリを取ってきて、`pnpm install` で開発用の道具を入れます（下の「動かす」）。
-- リポジトリの中の SDK は、タグで固定しています（`package.json` の `github:zenryokukikai/zen-lipsync#v1.5.1`）。アバターパックの形式 3 は SDK 1.5.0 以降で読めます。
+- リポジトリの中の SDK は、タグで固定しています（`package.json` の `github:zenryokukikai/zen-lipsync#v1.5.2`）。アバターパックの形式 3 は SDK 1.5.0 以降で読めます。
 - 使う Node.js は 26.12.1 です（`.mise.toml` で固定）。
 - 音声合成のモデルは、`pnpm fetch-tts-models` で取ってきます（下のとおり）。
 
